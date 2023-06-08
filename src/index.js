@@ -1,17 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./styles/index.css";
+import App from "./App";
+import { createTheme, NextUIProvider } from "@nextui-org/react";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// color theme se
+const theme = createTheme({
+  type: "light",
+  theme: {
+    colors: {
+      primary: "#007AFF",
+      secondary: "#5856D6",
+      success: "#4CD964",
+      warning: "#FF9500",
+      error: "#FF3B30",
+      background: "#EFEFF4",
+      text: "#000000",
+    },
+  },
+});
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <NextUIProvider theme={theme}>
+      <App />
+    </NextUIProvider>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
