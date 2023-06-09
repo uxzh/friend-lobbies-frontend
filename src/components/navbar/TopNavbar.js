@@ -2,6 +2,7 @@ import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
 import { Logo } from "../../lib/Logo.js";
 import { Layout } from "./Layout.js";
 import { AppName } from "../../data/Variables.js";
+import { Home } from "react-iconly";
 
 export default function TopNavbar() {
   const collapseItems = [
@@ -35,14 +36,18 @@ export default function TopNavbar() {
         </Navbar.Brand>
         <Navbar.Content
           enableCursorHighlight
-          activeColor="primary"
+          activeColor="secondary"
           hideIn="xs"
-          variant="highlight"
+          variant="highlight-solid"
         >
-          <Navbar.Link href="#">Features</Navbar.Link>
-          <Navbar.Link isActive href="#">
-            Customers
+          <Navbar.Link href="#" isActive>
+            <Home
+              style={{ height: 22, width: 22, padding: 0, marginRight: 4 }}
+              set="bold"
+            />{" "}
+            Home
           </Navbar.Link>
+          <Navbar.Link href="#">Customers</Navbar.Link>
           <Navbar.Link href="#">Pricing</Navbar.Link>
           <Navbar.Link href="#">Company</Navbar.Link>
         </Navbar.Content>
@@ -59,10 +64,11 @@ export default function TopNavbar() {
               <Dropdown.Trigger>
                 <Avatar
                   bordered
+                  squared
                   as="button"
                   color="secondary"
                   size="md"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  src="https://ca.slack-edge.com/T046G9D7MGU-U04ALRSD91T-6a4689126259-512"
                 />
               </Dropdown.Trigger>
             </Navbar.Item>

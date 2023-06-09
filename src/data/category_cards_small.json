@@ -1,0 +1,27 @@
+[
+    {
+        "badgeContent":"👤 24",
+        "cardImgSrc":"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGVhbHRoeSUyMGZvb2R8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+        "cardText":"Healthy Food",
+        "cardCat":"#sports #soccer #outdoors #team"
+    },
+    {
+        "badgeContent":"👤 12",
+        "cardImgSrc":"https://patch.com/img/cdn20/shutterstock/22511888/20230222/073126/shutterstock-343034981___22193126563.jpg",
+        "cardText":"Cheese week",
+        "cardCat":"#sports #snow #mountains #skiing "
+    },
+    {
+        "badgeContent":"👤 12",
+        "cardImgSrc":"https://images.immediate.co.uk/production/volatile/sites/30/2008/01/EasyWhiteBread-7756545.jpg?resize=768,574",
+        "cardText":"Bread Cooking",
+        "cardCat":"#sports #snow #mountains #skiing "
+    },
+    {
+        "badgeContent":"👤 20",
+        "cardImgSrc":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhkP7_xYRdedZNC-kjjgHSCAmHcp5SOj4jkA&usqp=CAU",
+        "cardText":"Family BBQ",
+        "cardCat":"#sports #snow #mountains #skiing"
+    }
+
+]
