@@ -1,14 +1,37 @@
 [
     {
-        "badgeContent":"👤 24",
-        "cardImgSrc":"https://fivethirtyeight.com/wp-content/uploads/2022/11/GettyImages-1442587075-e1668806020544.jpg?w=420",
-        "cardText":"Soccer",
-        "cardCat":"#sports #soccer #outdoors #team"
+        "category":"sports",
+        "cards":[
+            {
+                "badgeContent":"👤 24",
+                "cardImgSrc":"https://fivethirtyeight.com/wp-content/uploads/2022/11/GettyImages-1442587075-e1668806020544.jpg?w=420",
+                "cardText":"Soccer",
+                "cardCat":"#sports #soccer #outdoors #team"
+            },
+            {
+                "badgeContent":"👤 12",
+                "cardImgSrc":"https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2tpaW5nfGVufDB8fDB8fHww&w=1000&q=80",
+                "cardText":"Skiing",
+                "cardCat":"#sports #snow #mountains #skiing"
+            }
+        ]
     },
     {
-        "badgeContent":"👤 12",
-        "cardImgSrc":"https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2tpaW5nfGVufDB8fDB8fHww&w=1000&q=80",
-        "cardText":"Skiing",
-        "cardCat":"#sports #snow #mountains #skiing"
+        "category":"table-top games",
+        "cards":[
+            {
+                "badgeContent":"👤 6",
+                "cardImgSrc":"https://techraptor.net/sites/default/files/styles/herobanner_desktop/public/2022-05/DND%20Generic%20Image%20%281%29.jpg?itok=tkyiJhui",
+                "cardText":"DnD Session",
+                "cardCat":"#table-top #indoors #relaxed #role-playing"
+            },
+            {
+                "badgeContent":"👤 4",
+                "cardImgSrc":"https://media.timeout.com/images/105627949/750/422/image.jpg",
+                "cardText":"Game Night",
+                "cardCat":"#table-top #indoors #relaxed "
+            }
+        ]
     }
+
 ]

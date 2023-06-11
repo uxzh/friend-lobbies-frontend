@@ -12,7 +12,6 @@ import catCardBig from '../data/category_cards_big.json';
 import catCardSmall from '../data/category_cards_small.json';
 
 export default function Main() {
-
   return (
     <>
       <header>
@@ -32,14 +31,14 @@ export default function Main() {
               <CategoryName name={"Sports ⚽"} amount={4} />
               <Row className="horizontal-scroll-container">
                 {
-                  catCardBig.map((item, index)=>{
+                  catCardBig[0].cards.map((item, index)=>{
                     return <CategoryCardsBig key={index} props={item}/>})
                 }
               </Row>
               <CategoryName name={"Cooking 🧑‍🍳"} amount={12} />
               <Row className="horizontal-scroll-container">
                 {
-                  catCardSmall.map((item, index)=>{
+                  catCardSmall[1].cards.map((item, index)=>{
                     return <CategoryCardsSmall key={index} props={item}/>})
                 }
               </Row>
