@@ -1,14 +1,14 @@
 [
-    {"interest":"Reading"},
-    {"interest":"Sports"},
-    {"interest":"Games"},
-    {"interest":"Baking"},
-    {"interest":"Cinema"},
-    {"interest":"Racing"},
-    {"interest":"Cooking"},
-    {"interest":"Excercise"},
-    {"interest":"Traveling"},
-    {"interest":"Trecking"},
-    {"interest":"Eating"},
-    {"interest":"Art"}
+  { "interest": "Reading", "emoji": "📖", "bgcolor": "#B3C7DF" },
+  { "interest": "Sports", "emoji": "💪", "bgcolor": "#F0CCDC" },
+  { "interest": "Games", "emoji": "🎲", "bgcolor": "#F4F5D2" },
+  { "interest": "Baking", "emoji": "🍞", "bgcolor": "#F4F0CB" },
+  { "interest": "Cinema", "emoji": "📽️", "bgcolor": "#C6EFCA" },
+  { "interest": "Racing", "emoji": "💨", "bgcolor": "#A0DEDD" },
+  { "interest": "Cooking", "emoji": "🧑‍🍳", "bgcolor": "#FFE096" },
+  { "interest": "Exercise", "emoji": "🤸", "bgcolor": "#BED8D7" },
+  { "interest": "Traveling", "emoji": "✈️", "bgcolor": "#FDF8AF" },
+  { "interest": "Hiking", "emoji": "⛰️", "bgcolor": "#B7C68B" },
+  { "interest": "Wine", "emoji": "🍷", "bgcolor": "#C2BACF" },
+  { "interest": "Art", "emoji": "🎨", "bgcolor": "#FFDFD3" }
 ]
