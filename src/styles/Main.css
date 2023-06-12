@@ -46,3 +46,7 @@ main > h3 {
 .horizontal-scroll-container::-webkit-scrollbar {
   display: none;
 }
+
+.profile-username{
+  font-size: x-large;
+}

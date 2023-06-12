@@ -7,7 +7,7 @@ import interests from '../data/interest_selection.json'
 
 
 function InterestSelection(){
-    const exampleText = 'Example Text'
+    
     return(
         <>
             <header>
