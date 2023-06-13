@@ -46,7 +46,33 @@ main > h3 {
 .horizontal-scroll-container::-webkit-scrollbar {
   display: none;
 }
+/* UserInfo hidden when Input revealed */
+.avatar {
+  transition: opacity 0.3s ease;
+}
+@media screen and (max-width: 620px) {
+  .welcome-info {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+}
 
-.profile-username{
-  font-size: x-large;
+.text {
+  margin-left: 1rem;
+  line-height: 1.2;
+  margin-top: 8px;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 767px) {
+  .avatar.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .text.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
 }

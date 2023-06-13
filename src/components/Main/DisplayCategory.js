@@ -1,24 +1,38 @@
 import { Button, Row } from "@nextui-org/react";
-
+import { useState } from "react";
 export default function DisplayCategory() {
+  const [activeButton, setActiveButton] = useState("For you");
+  const handleClick = (buttonName) => {
+    setActiveButton(buttonName);
+  };
+  const buttons = [
+    { name: "For you", marginLeft: 0 },
+    { name: "Most Popular", marginLeft: 8 },
+    { name: "Nearby", marginLeft: 8 },
+    { name: "By Categories", marginLeft: 8 },
+  ];
   return (
     <Row
       style={{ marginTop: "2vh" }}
       id="categories"
       className="horizontal-scroll-container"
     >
-      <Button css={{ backgroundColor: "black" }} auto>
-        For you
-      </Button>
-      <Button color="" style={{ marginLeft: 8 }} auto>
-        Most Popular
-      </Button>
-      <Button color="" style={{ marginLeft: 8 }} auto>
-        Nearby
-      </Button>
-      <Button color="" style={{ marginLeft: 8 }} auto>
-        By Categories
-      </Button>
+      {buttons.map((button) => (
+        <Button
+          key={button.name}
+          css={{
+            backgroundColor: activeButton === button.name ? "black" : "white",
+            color: activeButton === button.name ? "white" : "black",
+            marginLeft: button.marginLeft,
+            borderColor: activeButton === button.name ? "black" : "#C5C6D0",
+          }}
+          onClick={() => handleClick(button.name)}
+          auto
+          bordered
+        >
+          {button.name}
+        </Button>
+      ))}
     </Row>
   );
 }
