@@ -10,10 +10,11 @@ import {
 import TopNavbar from "../components/navbar/TopNavbar";
 import "../styles/Main.css";
 import InterestButton from "../components/InterestSelection/InterestButton";
-
+import "../styles/Interests.css";
 import interests from "../data/interest_selection.json";
 import { useState } from "react";
 import { ArrowRightSquare } from "react-iconly";
+import MainCard from "./../components/Reusable/MainCard";
 
 function InterestSelection() {
   const [selectedInterests, setSelectedInterests] = useState([]);
@@ -34,41 +35,44 @@ function InterestSelection() {
         <TopNavbar />
       </header>
       <main>
-        <Container sm>
-          <Card style={{ marginBottom: "12vh" }}>
-            <Row justify="center">
-              <Text h3 style={{ margin: "2vh 0" }}>
-                Select your Interests
-              </Text>
-            </Row>
-            <Grid.Container justify="center" gap={1} wrap="wrap">
-              {interests.map((item, index) => {
-                return (
-                  <Grid
-                    xs
-                    alignItems="center"
-                    alignContent="center"
-                    key={index}
-                  >
+        <MainCard
+          children={
+            <>
+              <Row justify="center">
+                <Text h3 style={{ margin: "2vh 0" }}>
+                  Select your Interests
+                </Text>
+              </Row>
+              <div className="grid-container">
+                {interests.map((item, index) => {
+                  return (
                     <InterestButton
+                      key={index}
                       props={item}
                       onInterestSelect={handleInterestSelection}
                     />
-                  </Grid>
-                );
-              })}
-            </Grid.Container>
-            <Spacer />
-          </Card>
-          <Button
-            size={"lg"}
-            auto
-            iconRight={<ArrowRightSquare set="bold" />}
-            style={{ margin: "auto" }}
-          >
-            Continue
-          </Button>
-        </Container>
+                  );
+                })}
+              </div>
+              <Spacer />
+            </>
+          }
+        />
+        <Button
+          size={"lg"}
+          auto
+          iconRight={<ArrowRightSquare set="bold" />}
+          style={{
+            margin: "auto",
+            marginTop: "8vh",
+            marginBottom: "8vh",
+            backgroundColor: "white",
+          }}
+          bordered
+          color={"black"}
+        >
+          Continue
+        </Button>
       </main>
     </>
   );

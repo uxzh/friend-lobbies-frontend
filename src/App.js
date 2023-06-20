@@ -6,18 +6,23 @@ import ProfilePage from "./pages/ProfilePage";
 import LobbyPage from "./pages/LobbyPage";
 import LobbyCreation from "./pages/LobbyCreation";
 import LobbyDetailsPage from "./pages/LobbyDetailsPage";
-
+import lozad from "lozad";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    const observer = lozad(".lozad");
+    observer.observe();
+  }, []);
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/interest-selection" element={<InterestSelection/>}/>
-        <Route path='/profile-page' element={<ProfilePage/>}/>
-        <Route path='/lobby-page' element={<LobbyPage/>}/>
-        <Route path='/create-lobby' element={<LobbyCreation/>}/>
-        <Route path='/lobby-details' element={<LobbyDetailsPage/>}/>
+        <Route path="/interest-selection" element={<InterestSelection />} />
+        <Route path="/profile-page" element={<ProfilePage />} />
+        <Route path="/lobby-page" element={<LobbyPage />} />
+        <Route path="/create-lobby" element={<LobbyCreation />} />
+        <Route path="/lobby-details" element={<LobbyDetailsPage />} />
       </Routes>
     </Router>
   );

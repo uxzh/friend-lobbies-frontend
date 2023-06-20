@@ -1,0 +1,15 @@
+.filepond--credits {
+  display: none;
+}
+.filepond--wrapper {
+  margin: auto;
+  width: 98%;
+  margin-top: 1vh;
+}
+#category_dropdown {
+  bottom: 4;
+}
+.filepond--drop-label {
+  border: 1px dashed gray;
+  border-radius: 0.4rem;
+}

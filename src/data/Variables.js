@@ -1,1 +1,1 @@
-export const AppName = "BFFind";
+export const AppName = "Friend Zone";

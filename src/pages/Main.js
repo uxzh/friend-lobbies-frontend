@@ -1,51 +1,68 @@
 import { Card, Container, Row } from "@nextui-org/react";
 import TopNavbar from "../components/navbar/TopNavbar";
 import "../styles/Main.css";
-
 import UserInfo from "../components/Main/UserInfo";
-import DisplayCategory from "../components/Main/DisplayCategory";
-import CategoryName from "../components/Main/CategoryName";
-import CategoryCardsBig from "../components/Main/CategoryCardsBig";
-import CategoryCardsSmall from "../components/Main/CategoryCardsSmall";
+import DisplaySelection from "../components/Main/DisplaySelection";
 
-import catCardBig from '../data/category_cards_big.json';
-import catCardSmall from '../data/category_cards_small.json';
+import MainCard from "../components/Reusable/MainCard";
+import DisplayByCategory from "../components/Main/DisplayByCategory";
+import DisplayForYou from "../components/Main/DisplayForYou";
+import DisplayMostPopular from "../components/Main/DisplayMostPopular ";
+import DisplayNearby from "../components/Main/DisplayNearby";
+import { useState } from "react";
 
 export default function Main() {
+  const [activeButton, setActiveButton] = useState("For you");
+
+  const handleClick = (buttonName) => {
+    setActiveButton(buttonName);
+  };
+
+  const renderContent = () => {
+    switch (activeButton) {
+      case "For you":
+        return (
+          <DisplayForYou
+            interests={["sport", "video gaming", "games"]}
+            city="Tel Aviv"
+          />
+        );
+      case "Most Popular":
+        return <DisplayMostPopular />;
+      case "Nearby":
+        return <DisplayNearby city="Tel Aviv" />;
+      case "By Categories":
+        return <DisplayByCategory />;
+      default:
+        return (
+          <DisplayForYou
+            city="Tel Aviv"
+            interests={["sport", "video gaming", "games"]}
+          />
+        );
+    }
+  };
+
   return (
     <>
       <header>
         <TopNavbar />
       </header>
       <main>
-        <Container sm>
-          <Card css={{ $$cardColor: "white" }}>
-            <Card.Body>
+        <MainCard
+          children={
+            <>
               <UserInfo
                 imgSrc={
                   "https://ca.slack-edge.com/T046G9D7MGU-U04ALRSD91T-6a4689126259-512"
                 }
                 username={"Aviad the King"}
               />
-              <DisplayCategory />
-              <CategoryName name={"Sports ⚽"} amount={4} />
-              <Row className="horizontal-scroll-container">
-                {
-                  catCardBig[0].cards.map((item, index)=>{
-                    return <CategoryCardsBig key={index} props={item}/>})
-                }
-              </Row>
-              <CategoryName name={"Cooking 🧑‍🍳"} amount={12} />
-              <Row className="horizontal-scroll-container">
-                {
-                  catCardSmall[1].cards.map((item, index)=>{
-                    return <CategoryCardsSmall key={index} props={item}/>})
-                }
-              </Row>
-              
-            </Card.Body>
-          </Card>
-        </Container>
+              <DisplaySelection handleClick={handleClick} />
+              {renderContent()}
+            </>
+          }
+        />
       </main>
     </>
   );

@@ -1,10 +1,34 @@
-import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
+import {
+  Navbar,
+  Link,
+  Text,
+  Avatar,
+  Dropdown,
+  Button,
+} from "@nextui-org/react";
 import { Logo } from "../../lib/Logo.js";
 import { Layout } from "./Layout.js";
 import { AppName } from "../../data/Variables.js";
 import { Home } from "react-iconly";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import LoginModal from "./LoginModal.js";
 
 export default function TopNavbar() {
+  const navigate = useNavigate();
+
+  const handleDropdownAction = (actionKey) => {
+    switch (actionKey) {
+      case "my_profile":
+        navigate("/profile-page");
+        break;
+      case "my_interests":
+        navigate("/interest-selection");
+        break;
+      // ... handle other action keys ...
+    }
+  };
+
   const collapseItems = [
     "Profile",
     "Dashboard",
@@ -17,6 +41,11 @@ export default function TopNavbar() {
     "Help & Feedback",
     "Log Out",
   ];
+  const location = useLocation();
+
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
 
   return (
     <Layout>
@@ -40,16 +69,21 @@ export default function TopNavbar() {
           hideIn="xs"
           variant="highlight-solid"
         >
-          <Navbar.Link href="#" isActive>
-            <Home
-              style={{ height: 22, width: 22, padding: 0, marginRight: 4 }}
-              set="bold"
-            />{" "}
+          <Navbar.Link href="/" isActive={isActive("/")}>
             Home
           </Navbar.Link>
-          <Navbar.Link href="#">Customers</Navbar.Link>
-          <Navbar.Link href="#">Pricing</Navbar.Link>
-          <Navbar.Link href="#">Company</Navbar.Link>
+          <Navbar.Link
+            href="/create-lobby"
+            isActive={isActive("/create-lobby")}
+          >
+            Create Lobby
+          </Navbar.Link>
+          <Navbar.Link href="/rules" isActive={isActive("/rules")}>
+            Rules
+          </Navbar.Link>
+          <Navbar.Link href="/faq" isActive={isActive("/faq")}>
+            FAQ
+          </Navbar.Link>
         </Navbar.Content>
         <Navbar.Content
           css={{
@@ -61,7 +95,7 @@ export default function TopNavbar() {
         >
           <Dropdown placement="bottom-right">
             <Navbar.Item>
-              <Dropdown.Trigger>
+              {/* <Dropdown.Trigger>
                 <Avatar
                   bordered
                   squared
@@ -70,12 +104,13 @@ export default function TopNavbar() {
                   size="md"
                   src="https://ca.slack-edge.com/T046G9D7MGU-U04ALRSD91T-6a4689126259-512"
                 />
-              </Dropdown.Trigger>
+              </Dropdown.Trigger> */}
+              <LoginModal />
             </Navbar.Item>
             <Dropdown.Menu
               aria-label="User menu actions"
               color="secondary"
-              onAction={(actionKey) => console.log({ actionKey })}
+              onAction={handleDropdownAction}
             >
               <Dropdown.Item key="profile" css={{ height: "$18" }}>
                 <Text b color="inherit" css={{ d: "flex" }}>
@@ -85,15 +120,17 @@ export default function TopNavbar() {
                   zoey@example.com
                 </Text>
               </Dropdown.Item>
-              <Dropdown.Item key="settings" withDivider>
-                My Settings
+              <Dropdown.Item key="my_profile" withDivider>
+                My Profile
               </Dropdown.Item>
-              <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
-              <Dropdown.Item key="analytics" withDivider>
-                Analytics
+              <Dropdown.Item key="my_interests">My Interests</Dropdown.Item>
+              <Dropdown.Item key="joined_lobbies" withDivider>
+                Joined Lobbies
               </Dropdown.Item>
-              <Dropdown.Item key="system">System</Dropdown.Item>
-              <Dropdown.Item key="configurations">Configurations</Dropdown.Item>
+              <Dropdown.Item key="created_lobbies">
+                Created Lobbies
+              </Dropdown.Item>
+              <Dropdown.Item key="friends">Friends</Dropdown.Item>
               <Dropdown.Item key="help_and_feedback" withDivider>
                 Help & Feedback
               </Dropdown.Item>
@@ -111,7 +148,9 @@ export default function TopNavbar() {
               css={{
                 color: index === collapseItems.length - 1 ? "$error" : "",
               }}
-              isActive={index === 2}
+              isActive={location.pathname.includes(
+                item.toLowerCase().replace(" ", "-")
+              )}
             >
               <Link
                 color="inherit"

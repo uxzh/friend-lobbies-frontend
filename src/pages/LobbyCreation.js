@@ -1,99 +1,193 @@
-import { Button, Card, Input, Row, Spacer } from "@nextui-org/react";
+import {
+  Button,
+  Container,
+  Grid,
+  Input,
+  Text,
+  Textarea,
+} from "@nextui-org/react";
 import TopNavbar from "../components/navbar/TopNavbar";
-import { CloseSquare } from "react-iconly";
-import { useState } from "react";
+import React, { useState } from "react";
+import MainCard from "../components/Reusable/MainCard";
+import "../styles/Create-Lobby.css";
+import DropdownCategory from "../components/CreateLobby/DropdownCategory";
+import CategoryCardsBigger from "../components/Main/CategoryCardsBigger";
+import { FilePond, registerPlugin } from "react-filepond";
+import "filepond/dist/filepond.min.css";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImageResize from "filepond-plugin-image-resize";
+import FilePondPluginFileEncode from "filepond-plugin-file-encode";
+import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
 
+registerPlugin(
+  FilePondPluginFileEncode,
+  FilePondPluginFileValidateSize,
+  FilePondPluginImageExifOrientation,
+  FilePondPluginImagePreview,
+  FilePondPluginImageResize
+);
 
+function LobbyCreation() {
+  const [category, setCategory] = useState(new Set(["Category"]));
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [location, setLocation] = useState("");
+  const [capacity, setCapacity] = useState(1);
+  const [images, setImages] = useState([]);
 
-function LobbyCreation(){
-    const [lobbyName, setLobbyName] = useState('');
-    const [activity, setActivity] = useState('');
-    const [categories, setCategories] = useState([]);
-    const [location, setLocation] = useState('');
-    const [size, setSize] = useState();
-    const [time, setTime] = useState();
+  console.log(images);
 
-    return(
-        <>
-            <header>
-                <TopNavbar/>
-            </header>
-            <main>
-                <Card>
-                    <Card.Header>
-                        <Row  align="center">
-                            <Button bordered size='xs'>
-                                <CloseSquare set="curved" primaryColor="grey" secondaryColor="lightgrey"/>
-                            </Button>
-                            <Input
-                                clearable
-                                underlined
-                                labelPlaceholder="Lobby Name"
-                                size='xl'
-                                width="360px"
-                                animated={false}
-                                value={lobbyName}
-                                onChange={(e)=>{setLobbyName(e.target.value)}}
-                            />
-                        </Row>
-                    </Card.Header>
-                    <Card.Body>
-                        <Row>
-                            <Input
-                                clearable
-                                bordered
-                                label="Activity"
-                                size='lg'
-                                
-                                value={activity}
-                                onChange={(e)=>{setActivity(e.target.value)}}
-                            />
-                            <Spacer x={0.5}/>
-                            <Input
-                                clearable
-                                bordered
-                                label="Location"
-                                size='lg'
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const newLobby = {
+    activity: title ? title : "Your lobby title goes here...",
+    location: location ? location : "Location of your event",
+    date: date ? date : "Let's pick the date",
+    capacity: "7",
+    pictures: images,
+    users: [],
+    defaultPicture: category.currentKey
+      ? `https://source.unsplash.com/random/?${category.currentKey
+          .replace(/\s/g, ",")
+          .slice(0, -2)}`
+      : "https://imgur.com/RFXVt9X.png",
+  };
 
-                                value={location}
-                                onChange={(e)=>{setLocation(e.target.value)}}
-                            />
-                        </Row>
-                        <Spacer y={0.5}/>
-                        <Row>
-                            <Input
-                            clearable
-                            bordered
-                            label="Lobby Size"
-                            size='lg'
-                            type="number"
-                            value={size}
-                            onChange={(e)=>{setSize(e.target.value)}}
-                            />
-                            <Spacer x={0.5}/>
-                            <Input
-                                clearable
-                                bordered
-                                label="Time"
-                                size="lg"
-                                type="time"
-                                value={time}
-                                onChange={(e)=>{setTime(e.target.value)}}
-                            />
-                        </Row>
+  return (
+    <>
+      <header>
+        <TopNavbar />
+      </header>
+      <main>
+        <MainCard
+          children={
+            <>
+              <div style={{ textAlign: "center" }}>
+                <Text h2>Create Lobby</Text>
+                <Text h3>What is your Interest?</Text>
+                <center>
+                  <DropdownCategory
+                    selected={category}
+                    setSelected={setCategory}
+                    type={"single"}
+                  />
+                </center>
+              </div>
+              <div
+                style={{
+                  margin: "auto",
+                  marginTop: "4vh",
+                  width: "100%",
+                  padding: "0 2vw",
+                  maxWidth: 800,
+                }}
+              >
+                <center>
+                  <Input
+                    css={{ width: "97%", textAlign: "left" }}
+                    clearable
+                    label="Lobby Title"
+                    placeholder="How do you name this lobby?"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                  <Textarea
+                    css={{ width: "97%", marginTop: "1vh", textAlign: "left" }}
+                    clearable
+                    label="Lobby Description"
+                    placeholder="What is this lobby about?"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </center>
 
-                    </Card.Body>
-                    <Card.Footer>
-                        <Row justify="center">
-                            <Button color='gradient'>
-                                Create Lobby
-                            </Button>
-                        </Row>
-                    </Card.Footer>
-                </Card>
-            </main>
-        </>
-    )
+                <div style={{ marginTop: "0.6vh" }}>
+                  <Grid.Container>
+                    <Input
+                      type="date"
+                      css={{ margin: 8 }}
+                      label="Date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                    />
+                    <Input
+                      type="time"
+                      label="Time"
+                      css={{ margin: 8 }}
+                      value={time}
+                      onChange={(e) => setTime(e.target.value)}
+                    />
+                    <Input
+                      label="Location"
+                      placeholder="Where do you meet?"
+                      aria-label="Location"
+                      css={{ margin: 8 }}
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                    />
+                    {/* Have to limit user up to 3 digits */}
+                    <Input
+                      label="Capacity"
+                      css={{ margin: 8, width: 96 }}
+                      type="number"
+                      value={capacity}
+                      onChange={(e) => setCapacity(e.target.value)}
+                    />
+                  </Grid.Container>
+                  <small style={{ marginLeft: 10, color: "gray" }}>
+                    If no images were uploaded, default category image will be
+                    used instead
+                  </small>
+                  <FilePond
+                    allowMultiple={true}
+                    maxFiles={5}
+                    maxFileSize={"2MB"}
+                    imagePreviewHeight={100}
+                    imageResizeTargetHeight={200}
+                    imageResizeMode={"contain"}
+                    files={images}
+                    imageTransformOutputQuality={80}
+                    acceptedFileTypes="image/*"
+                    onupdatefiles={(fileItems) => {
+                      setImages(fileItems);
+                      setImages(fileItems.map((fileItem) => fileItem.file));
+                    }}
+                    name="file"
+                  />
+                </div>
+                <div>
+                  <Text h3 css={{ textAlign: "center", marginTop: "2vh" }}>
+                    This is how your Lobby is going to look
+                  </Text>
+                  <div style={{ maxWidth: 400, width: "100%", margin: "auto" }}>
+                    <CategoryCardsBigger props={newLobby} />
+                  </div>
+                </div>
+                <center>
+                  <Text h3 css={{ textAlign: "center", marginTop: "3vh" }}>
+                    Happy with the results?
+                  </Text>
+                  <Button
+                    color=""
+                    css={{
+                      color: "white",
+                      backgroundColor: "$black",
+                      fontWeight: "700",
+                    }}
+                  >
+                    Submit
+                  </Button>
+                </center>
+              </div>
+            </>
+          }
+        />
+      </main>
+    </>
+  );
 }
 
 export default LobbyCreation;

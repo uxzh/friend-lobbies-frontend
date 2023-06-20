@@ -1,16 +1,15 @@
 import { Button, Row } from "@nextui-org/react";
 import { useState } from "react";
-export default function DisplayCategory() {
+export default function DisplayCategory({ handleClick }) {
   const [activeButton, setActiveButton] = useState("For you");
-  const handleClick = (buttonName) => {
-    setActiveButton(buttonName);
-  };
+
   const buttons = [
     { name: "For you", marginLeft: 0 },
     { name: "Most Popular", marginLeft: 8 },
     { name: "Nearby", marginLeft: 8 },
     { name: "By Categories", marginLeft: 8 },
   ];
+
   return (
     <Row
       style={{ marginTop: "2vh" }}
@@ -26,7 +25,10 @@ export default function DisplayCategory() {
             marginLeft: button.marginLeft,
             borderColor: activeButton === button.name ? "black" : "#C5C6D0",
           }}
-          onClick={() => handleClick(button.name)}
+          onPress={() => {
+            setActiveButton(button.name);
+            handleClick(button.name);
+          }}
           auto
           bordered
         >

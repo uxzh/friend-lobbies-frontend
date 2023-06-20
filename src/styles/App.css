@@ -16,3 +16,30 @@ h6 {
 header {
   margin-bottom: 4vh;
 }
+img {
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgb(239, 237, 237);
+  border-radius: 100vh;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #777777;
+  border-radius: 100vh;
+}
+::-webkit-scrollbar-track {
+  width: 10px;
+  background-color: rgb(239, 237, 237);
+  border-radius: 100vh;
+}
+
+main {
+  min-height: 100vh;
+  background-image: url("https://nextui.org/theming-gradient.svg");
+}
