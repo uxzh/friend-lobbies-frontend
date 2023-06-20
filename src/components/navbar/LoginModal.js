@@ -35,8 +35,6 @@ export default function App() {
       const res = await axios.post(`${SERVERURL}/login`, {username, password, email}, {withCredentials: true})
       const token = await jwt_decode(res.data)
       setUser(token)
-      console.log(token)
-      console.log("success")
       closeHandler()
     }catch(err){
       console.log(err)
@@ -45,9 +43,12 @@ export default function App() {
 
   const signupHandler = async() => {
     try{
-      const res = await axios.post(`${SERVERURL}/signup`, userObject, {withCredentials: true})
+      const {email, password, passwordConfirm, firstName, lastName, phone, username, interests} = userObject;
+      const res = await axios.post(`${SERVERURL}/signup`, {email, password, passwordConfirm, firstName, lastName, phone, username, interests}, {withCredentials: true})
       const token = await jwt_decode(res.data)
       setUser(token)
+      console.log(token)
+      console.log("success")
       closeHandler()
     }catch(err){
       console.log(err)
@@ -300,10 +301,10 @@ export default function App() {
           </Button>
             {isRegistered ? 
             <Button auto onClick={signupHandler}>
-            "Sign up"
+            Sign up
             </Button> :
             <Button auto onClick={loginHandler}> 
-            "Sign in"
+            Sign in
             </Button>}
         </Modal.Footer>
       </Modal>
