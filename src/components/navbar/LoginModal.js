@@ -57,10 +57,7 @@ export default function App() {
     }
   }
 
-    console.log("closed");
-  };
   const [category, setCategory] = useState(new Set(["Pick Your Interests"]));
-  const { value, reset, bindings } = useInput("");
 
   const validateEmail = (value) => {
     return value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
@@ -279,4 +276,5 @@ export default function App() {
       </Modal>
     </div>
   );
+}
 
