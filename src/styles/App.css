@@ -38,8 +38,11 @@ img {
   background-color: rgb(239, 237, 237);
   border-radius: 100vh;
 }
+<<<<<<< HEAD
+=======
 
 main {
   min-height: 100vh;
   background-image: url("https://nextui.org/theming-gradient.svg");
 }
+>>>>>>> main

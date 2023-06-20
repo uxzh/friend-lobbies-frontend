@@ -3,7 +3,6 @@ import TopNavbar from "../components/navbar/TopNavbar";
 import "../styles/Main.css";
 import UserInfo from "../components/Main/UserInfo";
 import DisplaySelection from "../components/Main/DisplaySelection";
-
 import MainCard from "../components/Reusable/MainCard";
 import DisplayByCategory from "../components/Main/DisplayByCategory";
 import DisplayForYou from "../components/Main/DisplayForYou";
