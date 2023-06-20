@@ -93,7 +93,7 @@ export default function App() {
         onClick={handler}
         onPress={handler}
       >
-        <span style={{ fontWeight: 700 }}>Sign Up</span>
+        <span style={{ fontWeight: 700 }}>Sign in</span>
       </Button>
       <Modal
         closeButton
@@ -270,7 +270,7 @@ export default function App() {
             Close
           </Button>
           <Button auto onClick={closeHandler}>
-            {isRegistered ? "Sign in" : "Sign Up"}
+            {isRegistered ? "Sign up" : "Sign in"}
           </Button>
         </Modal.Footer>
       </Modal>
