@@ -10,9 +10,10 @@ import {
   Spacer,
   Text,
   Tooltip,
+  Loading
 } from "@nextui-org/react";
 import TopNavbar from "../components/navbar/TopNavbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MemberData from "../components/LobbyDetailsPage/MemberData";
 import WaitlistData from "../components/LobbyDetailsPage/WaitlistData";
 import {
@@ -34,8 +35,13 @@ import LazyLoad from "react-lazy-load";
 import CategoryCardsBig from "../components/Main/CategoryCardsBig";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import useDrag from "../hooks/useDrag";
+import axios from "axios";
+import SERVERURL from "../lib/SERVERURL";
 
 function LobbyDetailsPage() {
+  const [lobby, setLobby] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [admin, setAdmin] = useState(null);
   const { dragStart, dragStop, dragMove, dragging } = useDrag();
   const handleDrag =
     ({ scrollContainer }) =>
@@ -64,40 +70,58 @@ function LobbyDetailsPage() {
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
-  const query = useQuery();
-  const lobbyId = query.get("lobbyId");
-  const foundLobby = lobbies.find((lobby) => lobby._id === lobbyId);
-  const data = foundLobby.pictures.map((url) => ({ image: url }));
 
-  const sameCategoryLobbies = lobbies.filter(
-    (lobby) => lobby.category === foundLobby.category && lobby._id !== lobbyId
-  );
+  useEffect(() => {
+    const fetchLobby = async () => {
+      try{
+        const query = new URLSearchParams(window.location.search);
+        const lobbyId = query.get("lobbyId");
+        const res = await axios.get(`${SERVERURL}/lobbies/lobby/${lobbyId}`, {withCredentials: true});
+        setLobby(res.data);
+        const users = await axios.get(`${SERVERURL}/lobbies/users/${lobbyId}`, {withCredentials: true});
+        setUsers(users.data);
+        const admin = await axios.get(`${SERVERURL}/users/single/${res.data.admins[0]}`, {withCredentials: true});
+        setAdmin(admin.data);
+      }catch(err){
+        console.log(err)
+      }
+    }
+    fetchLobby();
+  }, [])
+  // const query = useQuery();
+  // const lobbyId = query.get("lobbyId");
+  // // const foundLobby = lobbies.find((lobby) => lobby._id === lobbyId);
+  // // const data = foundLobby.pictures.map((url) => ({ image: url }));
 
-  console.log(sameCategoryLobbies);
+  // const sameCategoryLobbies = lobbies.filter(
+  //   (lobbies) => lobbies.category === lobby.category && lobbies._id !== lobbyId
+  // );
+
+  // console.log(sameCategoryLobbies);
 
   return (
     <>
       <header>
         <TopNavbar />
       </header>
-      <main>
+      {lobby ? <main>
         <MainCard
           children={
             <>
               <Row justify="center">
                 <Text css={{ marginBottom: 0, textAlign: "center" }}>
-                  {foundLobby.category}
+                  {lobby.category}
                 </Text>
               </Row>
               <Row justify="center">
                 <Text h2 css={{ marginBottom: 0, textAlign: "center" }}>
-                  {foundLobby.activity}
+                  {lobby.activity}
                 </Text>
               </Row>
 
               <Card.Body>
                 <Row justify="center">
-                  {foundLobby.pictures.length > 0 && (
+                  {lobby.pictures.length > 0 && (
                     <Carousel
                       showArrows={false}
                       showStatus={false}
@@ -112,8 +136,8 @@ function LobbyDetailsPage() {
                       autoFocusable={true}
                       width={400}
                     >
-                      {data &&
-                        data.map((item, index) => (
+                      {lobby.pictures.map((url) => ({ image: url })) &&
+                        lobby.pictures.map((url) => ({ image: url })).map((item, index) => (
                           <div key={index} className="galleryContainer">
                             <img
                               className="galleryImg"
@@ -124,7 +148,7 @@ function LobbyDetailsPage() {
                         ))}
                     </Carousel>
                   )}
-                  {foundLobby.pictures.length === 0 && (
+                  {lobby.pictures.length === 0 && (
                     <Carousel
                       showArrows={false}
                       showStatus={false}
@@ -142,7 +166,7 @@ function LobbyDetailsPage() {
                       <div className="galleryContainer">
                         <img
                           className="galleryImg"
-                          src={foundLobby.defaultPicture}
+                          src={lobby.defaultPicture}
                           alt={`Slide 1`}
                         />
                       </div>
@@ -153,19 +177,19 @@ function LobbyDetailsPage() {
                 <Row justify="center">
                   <Avatar.Group
                     count={
-                      foundLobby.users.length > 5
-                        ? foundLobby.users.length - 5
+                      lobby.users.length > 5
+                        ? lobby.users.length - 5
                         : ""
                     }
                   >
-                    {foundLobby.users.slice(0, 5).map((name, index) => (
-                      <Tooltip content={name} color={"invert"}>
+                    {users.slice(0, 5).map((user) => (
+                      <Tooltip content={"@" + user.username} color={"invert"}>
                         <Avatar
-                          key={index}
+                          key={user.username}
                           size="lg"
                           pointer
                           src={
-                            "https://ca.slack-edge.com/T046G9D7MGU-U0470CYKK1R-904a18162ebd-512"
+                            user.picture
                           }
                           bordered
                           color="gradient"
@@ -177,7 +201,7 @@ function LobbyDetailsPage() {
                 </Row>
                 <Row justify="center">
                   <Text css={{ textAlign: "center" }}>
-                    {foundLobby.users.length} out of {foundLobby.capacity}{" "}
+                    {lobby.users.length} out of {lobby.capacity}{" "}
                     people joined
                   </Text>
                 </Row>
@@ -201,7 +225,7 @@ function LobbyDetailsPage() {
                         primaryColor="#4c8bf5"
                       />
                       <strong>Date: </strong>
-                      {foundLobby.date}
+                      {lobby.date}
                     </Text>
                   </Row>
                   <Row>
@@ -219,7 +243,7 @@ function LobbyDetailsPage() {
                         }}
                       />
                       <strong>Location: </strong>
-                      {foundLobby.location}
+                      {lobby.location}
                     </Text>
                   </Row>
                   <Row>
@@ -237,7 +261,7 @@ function LobbyDetailsPage() {
                         }}
                       />
                       <strong>Description: </strong>
-                      {foundLobby.description}
+                      {lobby.description}
                     </Text>
                   </Row>
                 </Container>
@@ -265,7 +289,7 @@ function LobbyDetailsPage() {
           children={
             <>
               <Text h3 css={{ textAlign: "center", fontWeight: 600 }}>
-                Created by
+                Admin
               </Text>
 
               <Grid.Container justify="center">
@@ -289,17 +313,17 @@ function LobbyDetailsPage() {
                         >
                           <Avatar
                             src={
-                              "https://ca.slack-edge.com/T046G9D7MGU-U048E1E2HME-ec532a93d7f3-72"
+                              admin.picture
                             }
                             size={"lg"}
                           />
                         </Badge>
                         <div style={{ margin: "4px 0 0 12px" }}>
                           <Text h4 css={{ marginBottom: 0 }}>
-                            Super Guy
+                            {admin.firstName + " " + admin.lastName}
                           </Text>
                           <Text h5 css={{ fontWeight: 400 }}>
-                            @superpuperguy
+                            {"@" + admin.username}
                           </Text>
                         </div>
                       </Col>
@@ -309,7 +333,7 @@ function LobbyDetailsPage() {
               </Grid.Container>
 
               <Spacer y={0.4} />
-              <Row justify="center">
+              {/* <Row justify="center">
                 <Text css={{ marginBottom: 0, marginTop: 2 }} h4>
                   Rating:{" "}
                 </Text>
@@ -323,7 +347,7 @@ function LobbyDetailsPage() {
               <Spacer y={0.2} />
               <Row justify="center">
                 <small>Based on 32 reviews</small>
-              </Row>
+              </Row> */}
             </>
           }
         />
@@ -331,9 +355,9 @@ function LobbyDetailsPage() {
         <MainCard
           children={
             <>
-              <Row justify="center">
+              {/* <Row justify="center">
                 <Text h3>Recommended Lobbies</Text>
-              </Row>
+              </Row> */}
 
               <>
                 <ScrollMenu
@@ -343,7 +367,7 @@ function LobbyDetailsPage() {
                   onMouseUp={() => dragStop}
                   onMouseMove={handleDrag}
                 >
-                  {sameCategoryLobbies.map((lobby, index) => {
+                  {/* {sameCategoryLobbies.map((lobby, index) => {
                     return (
                       <LazyLoad
                         height={300}
@@ -359,13 +383,17 @@ function LobbyDetailsPage() {
                         />
                       </LazyLoad>
                     );
-                  })}
+                  })} */}
                 </ScrollMenu>
               </>
             </>
           }
         />
-      </main>
+      </main> : <Loading size="xl" css={{
+  position: "fixed",
+  top: "50%",
+  left: "50%",
+}}/>}
       <footer>
           <Spacer y={2}/>
       </footer>
