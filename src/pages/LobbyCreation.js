@@ -42,15 +42,28 @@ function LobbyCreation() {
   const [capacity, setCapacity] = useState(1);
   const [images, setImages] = useState([]);
 
+  // console.log(images);
   const submitHandler = async () => {
-    try{
-      const timestring = date + "T" + time + ":00.000+02:00"
-      const timestamp = new Date(timestring).toISOString()
-      const res = await axios.post(`${SERVERURL}/lobbies/`, {category: category.currentKey, name: title, description, date:timestamp, location, capacity, images}, {withCredentials: true})
-    }catch(err){
-      console.log(err)
+    try {
+      const timestring = date + "T" + time + ":00.000+02:00";
+      const timestamp = new Date(timestring).toISOString();
+      const res = await axios.post(
+        `${SERVERURL}/lobbies/`,
+        {
+          category: category.currentKey,
+          name: title,
+          description,
+          date: timestamp,
+          location,
+          capacity,
+          images,
+        },
+        { withCredentials: true }
+      );
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
   console.log(images);
 
@@ -201,7 +214,7 @@ function LobbyCreation() {
         />
       </main>
       <footer>
-          <Spacer y={2}/>
+        <Spacer y={2} />
       </footer>
     </>
   );

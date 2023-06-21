@@ -5,7 +5,6 @@ import interest_selection from "../../data/interest_selection.json";
 const categories = interest_selection.sort((a, b) =>
   a.interest.localeCompare(b.interest)
 );
-console.log(categories);
 
 export default function DropwdownCategory({ selected, setSelected, type }) {
   const selectedValue = React.useMemo(

@@ -12,6 +12,10 @@ import jwt_decode from "jwt-decode";
 import getCookie from "./lib/getCookie";
 import UserContext from "./context/UserContext";
 import NotFound from "./pages/NotFound";
+import JoinedLobbies from "./pages/JoinedLobbies";
+import CreatedLobbies from "./pages/CreatedLobbies";
+import Notifications from "./pages/Notifications";
+
 
 function App() {
   const [user, setUser] = useState("");
@@ -43,7 +47,9 @@ function App() {
           <Route path="/lobby-page" element={<LobbyPage />} />
           <Route path="/create-lobby" element={<LobbyCreation />} />
           <Route path="/lobby-details" element={<LobbyDetailsPage />} />
-          <Route path="/my-lobbies" element={<LobbyDetailsPage />} />
+          <Route path="/joined-lobbies" element={<JoinedLobbies />} />
+          <Route path="/created-lobbies" element={<CreatedLobbies />} />
+          <Route path="/notifications" element={<Notifications />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </UserContext.Provider>

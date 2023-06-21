@@ -15,11 +15,10 @@ import { AppName } from "../../data/Variables";
 import { Call, Hide, Message, Password, Show, User } from "react-iconly";
 import interest_selection from "../../data/interest_selection.json";
 import DropwdownCategory from "../CreateLobby/DropdownCategory";
-import UserContext from '../../context/UserContext'
-import axios from 'axios'
-import jwt_decode from 'jwt-decode'
+import UserContext from "../../context/UserContext";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 import SERVERURL from "../../lib/SERVERURL";
-
 
 export default function App() {
   const [visible, setVisible] = React.useState(false);
@@ -29,35 +28,61 @@ export default function App() {
     setIsRegistered(false);
   };
 
-  const loginHandler = async() => {
-    try{
-      const {username, password, email} = userObject;
-      const res = await axios.post(`${SERVERURL}/login`, {username, password, email}, {withCredentials: true})
-      const token = await jwt_decode(res.data)
-      setUser(token)
-      closeHandler()
-    }catch(err){
-      console.log(err)
+  const loginHandler = async () => {
+    try {
+      const { username, password, email } = userObject;
+      const res = await axios.post(
+        `${SERVERURL}/login`,
+        { username, password, email },
+        { withCredentials: true }
+      );
+      const token = await jwt_decode(res.data);
+      setUser(token);
+      closeHandler();
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
-  const signupHandler = async() => {
-    try{
-      const {email, password, passwordConfirm, firstName, lastName, phone, username, interests} = userObject;
-      const res = await axios.post(`${SERVERURL}/signup`, {email, password, passwordConfirm, firstName, lastName, phone, username, interests}, {withCredentials: true})
-      const token = await jwt_decode(res.data)
-      setUser(token)
-      console.log(token)
-      console.log("success")
-      closeHandler()
-    }catch(err){
-      console.log(err)
+  const signupHandler = async () => {
+    try {
+      const {
+        email,
+        password,
+        passwordConfirm,
+        firstName,
+        lastName,
+        phone,
+        username,
+        interests,
+      } = userObject;
+      const res = await axios.post(
+        `${SERVERURL}/signup`,
+        {
+          email,
+          password,
+          passwordConfirm,
+          firstName,
+          lastName,
+          phone,
+          username,
+          interests,
+        },
+        { withCredentials: true }
+      );
+      const token = await jwt_decode(res.data);
+      setUser(token);
+      console.log(token);
+      console.log("success");
+      closeHandler();
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
   const { value, reset, bindings } = useInput("");
 
-  const {user, setUser} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -128,6 +153,7 @@ export default function App() {
       <Modal
         closeButton
         blur
+        preventClose
         aria-labelledby="modal-title"
         open={visible}
         onClose={closeHandler}
@@ -184,6 +210,9 @@ export default function App() {
             onChange={(event) => setEmail((prev) => event.target.value)}
             contentLeft={<Message set={"curved"} fill="currentColor" />}
           />
+          {!isRegistered && (
+            <Text style={{ margin: "auto", marginBottom: "1vh" }}>OR</Text>
+          )}
           <Input
             clearable
             bordered
@@ -299,16 +328,17 @@ export default function App() {
           <Button auto flat color="error" onClick={closeHandler}>
             Close
           </Button>
-            {isRegistered ? 
+          {isRegistered ? (
             <Button auto onClick={signupHandler}>
-            Sign up
-            </Button> :
-            <Button auto onClick={loginHandler}> 
-            Sign in
-            </Button>}
+              Sign up
+            </Button>
+          ) : (
+            <Button auto onClick={loginHandler}>
+              Sign in
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </div>
   );
 }
-
