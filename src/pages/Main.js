@@ -22,9 +22,7 @@ export default function Main() {
     switch (activeButton) {
       case "For you":
         return (
-          <DisplayForYou
-            user={user}
-          />
+          <DisplayForYou/>
         );
       case "Most Popular":
         return <DisplayMostPopular />;
