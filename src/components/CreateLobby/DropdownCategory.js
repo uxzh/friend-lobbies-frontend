@@ -35,7 +35,7 @@ export default function DropwdownCategory({ selected, setSelected, type }) {
         onSelectionChange={setSelected}
       >
         {categories.map((category) => (
-          <Dropdown.Item key={category.interest + category.emoji}>
+          <Dropdown.Item key={category.interest}>
             {category.interest + category.emoji}
           </Dropdown.Item>
         ))}

@@ -21,6 +21,8 @@ import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orien
 import FilePondPluginImageResize from "filepond-plugin-image-resize";
 import FilePondPluginFileEncode from "filepond-plugin-file-encode";
 import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
+import axios from "axios";
+import SERVERURL from "../lib/SERVERURL";
 
 registerPlugin(
   FilePondPluginFileEncode,
@@ -39,6 +41,16 @@ function LobbyCreation() {
   const [location, setLocation] = useState("");
   const [capacity, setCapacity] = useState(1);
   const [images, setImages] = useState([]);
+
+  const submitHandler = async () => {
+    try{
+      const timestring = date + "T" + time + ":00.000+02:00"
+      const timestamp = new Date(timestring).toISOString()
+      const res = await axios.post(`${SERVERURL}/lobbies/`, {category: category.currentKey, name: title, description, date:timestamp, location, capacity, images}, {withCredentials: true})
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   console.log(images);
 
@@ -91,7 +103,7 @@ function LobbyCreation() {
                     css={{ width: "97%", textAlign: "left" }}
                     clearable
                     label="Lobby Title"
-                    placeholder="How do you name this lobby?"
+                    placeholder="What is this lobby called?"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />
@@ -123,7 +135,7 @@ function LobbyCreation() {
                     />
                     <Input
                       label="Location"
-                      placeholder="Where do you meet?"
+                      placeholder="Where will you meet?"
                       aria-label="Location"
                       css={{ margin: 8 }}
                       value={location}
@@ -178,6 +190,7 @@ function LobbyCreation() {
                       backgroundColor: "$black",
                       fontWeight: "700",
                     }}
+                    onClick={submitHandler}
                   >
                     Submit
                   </Button>

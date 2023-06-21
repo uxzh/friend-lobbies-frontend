@@ -51,12 +51,7 @@ export default function Main() {
         <MainCard
           children={
             <>
-              <UserInfo
-                imgSrc={
-                  "https://ca.slack-edge.com/T046G9D7MGU-U04ALRSD91T-6a4689126259-512"
-                }
-                username={"Aviad the King"}
-              />
+              <UserInfo/>
               <DisplaySelection handleClick={handleClick} />
               {renderContent()}
             </>

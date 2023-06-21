@@ -84,21 +84,21 @@ export default function TopNavbar() {
           hideIn="xs"
           variant="highlight-solid"
         >
-          <Navbar.Link href="/" isActive={isActive("/")}>
+          {user ? <Navbar.Link href="/" isActive={isActive("/")}>
             Home
-          </Navbar.Link>
-          <Navbar.Link
+          </Navbar.Link> : <></>}
+          {user ? <Navbar.Link
             href="/create-lobby"
             isActive={isActive("/create-lobby")}
           >
             Create Lobby
-          </Navbar.Link>
-          <Navbar.Link href="/rules" isActive={isActive("/rules")}>
+          </Navbar.Link> : <></>}
+          {user ? <Navbar.Link href="/rules" isActive={isActive("/rules")}>
             Rules
-          </Navbar.Link>
-          <Navbar.Link href="/faq" isActive={isActive("/faq")}>
+          </Navbar.Link> : <></>}
+          {user ? <Navbar.Link href="/faq" isActive={isActive("/faq")}>
             FAQ
-          </Navbar.Link>
+          </Navbar.Link> : <></>}
         </Navbar.Content>
         <Navbar.Content
           css={{
