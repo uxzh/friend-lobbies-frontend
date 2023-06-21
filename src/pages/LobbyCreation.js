@@ -42,7 +42,9 @@ function LobbyCreation() {
   const [capacity, setCapacity] = useState(1);
   const [images, setImages] = useState([]);
 
+  // console.log(images);
   const submitHandler = async () => {
+<<<<<<< HEAD
     try{
       const data = new FormData()
       const timestring = date + "T" + time + ":00.000+02:00"
@@ -60,8 +62,28 @@ function LobbyCreation() {
       console.log(res.data)
     }catch(err){
       console.log(err)
+=======
+    try {
+      const timestring = date + "T" + time + ":00.000+02:00";
+      const timestamp = new Date(timestring).toISOString();
+      const res = await axios.post(
+        `${SERVERURL}/lobbies/`,
+        {
+          category: category.currentKey,
+          name: title,
+          description,
+          date: timestamp,
+          location,
+          capacity,
+          images,
+        },
+        { withCredentials: true }
+      );
+    } catch (err) {
+      console.log(err);
+>>>>>>> 5ef9d48f31aea96dbcd18303dd31f66177c1a458
     }
-  }
+  };
 
   console.log(images);
 
@@ -212,7 +234,7 @@ function LobbyCreation() {
         />
       </main>
       <footer>
-          <Spacer y={2}/>
+        <Spacer y={2} />
       </footer>
     </>
   );
