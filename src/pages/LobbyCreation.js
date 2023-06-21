@@ -44,9 +44,20 @@ function LobbyCreation() {
 
   const submitHandler = async () => {
     try{
+      const data = new FormData()
       const timestring = date + "T" + time + ":00.000+02:00"
       const timestamp = new Date(timestring).toISOString()
-      const res = await axios.post(`${SERVERURL}/lobbies/`, {category: category.currentKey, name: title, description, date:timestamp, location, capacity, images}, {withCredentials: true})
+      data.append("category", category.currentKey)
+      data.append("name", title)
+      data.append("description", description)
+      data.append("date", timestamp)
+      data.append("location", location)
+      data.append("capacity", capacity)
+      for (const image of images) {
+        data.append("pictures", image);
+      }
+      const res = await axios.post(`${SERVERURL}/lobbies/`, data, {withCredentials: true})
+      console.log(res.data)
     }catch(err){
       console.log(err)
     }
