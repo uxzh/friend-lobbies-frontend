@@ -13,9 +13,17 @@ import { Home } from "react-iconly";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "./LoginModal.js";
+import { useContext } from "react";
+import UserContext from "../../context/UserContext.jsx";
 
 export default function TopNavbar() {
   const navigate = useNavigate();
+  const {user, setUser} = useContext(UserContext);
+
+  const logoutHandler = () => {
+    setUser('')
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+  }
 
   const handleDropdownAction = (actionKey) => {
     switch (actionKey) {
@@ -24,6 +32,9 @@ export default function TopNavbar() {
         break;
       case "my_interests":
         navigate("/interest-selection");
+        break;
+      case "logout":
+        logoutHandler();
         break;
       // ... handle other action keys ...
     }
@@ -95,17 +106,17 @@ export default function TopNavbar() {
         >
           <Dropdown placement="bottom-right">
             <Navbar.Item>
-              {/* <Dropdown.Trigger>
+              {user ? <Dropdown.Trigger>
                 <Avatar
                   bordered
                   squared
                   as="button"
                   color="secondary"
                   size="md"
-                  src="https://ca.slack-edge.com/T046G9D7MGU-U04ALRSD91T-6a4689126259-512"
+                  src={user.picture}
                 />
-              </Dropdown.Trigger> */}
-              <LoginModal />
+              </Dropdown.Trigger> :
+              <LoginModal />}
             </Navbar.Item>
             <Dropdown.Menu
               aria-label="User menu actions"
@@ -117,7 +128,7 @@ export default function TopNavbar() {
                   Signed in as
                 </Text>
                 <Text b color="inherit" css={{ d: "flex" }}>
-                  zoey@example.com
+                  {`@${user.username}`}
                 </Text>
               </Dropdown.Item>
               <Dropdown.Item key="my_profile" withDivider>

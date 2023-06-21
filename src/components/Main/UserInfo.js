@@ -1,8 +1,10 @@
 import { Avatar, Button, Container, Input, Row, Text } from "@nextui-org/react";
 import { Search } from "react-iconly";
-import React, { useState } from "react";
-export default function UserInfo({ imgSrc, username }) {
+import React, { useState, useContext } from "react";
+import UserContext from "../../context/UserContext";
+export default function UserInfo() {
   const [inputVisible, setInputVisible] = useState(false);
+  const {user, setUser} = useContext(UserContext);
   const handleButtonClick = () => {
     setInputVisible(true);
   };
@@ -11,19 +13,19 @@ export default function UserInfo({ imgSrc, username }) {
   };
   return (
     <Row id="userInfo">
-      <Avatar
+      {user ? <Avatar
         size="xl"
-        src={imgSrc}
+        src={user.picture}
         color="secondary"
         squared
         className={inputVisible ? "welcome-info" : ""}
-      />
+      /> : <></>}
       <Text
         className={inputVisible ? "welcome-info" : ""}
         style={{ marginLeft: "1rem", lineHeight: 1.2, marginTop: 8 }}
       >
-        @aviadtheking <br />
-        <strong style={{ fontSize: "1.3rem" }}>{username}</strong>
+        {user ? `@${user.username}` : ""} <br />
+        <strong style={{ fontSize: "1.3rem" }}>{user ? user.firstName : "Welcome to Friendzone!"}</strong>
       </Text>
       {!inputVisible && (
         <Button

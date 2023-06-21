@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Modal,
   Input,
@@ -15,7 +15,10 @@ import { AppName } from "../../data/Variables";
 import { Call, Hide, Message, Password, Show, User } from "react-iconly";
 import interest_selection from "../../data/interest_selection.json";
 import DropwdownCategory from "../CreateLobby/DropdownCategory";
-
+import UserContext from '../../context/UserContext'
+import axios from 'axios'
+import jwt_decode from 'jwt-decode'
+import SERVERURL from "../../lib/SERVERURL";
 
 
 export default function App() {
@@ -24,10 +27,37 @@ export default function App() {
   const closeHandler = () => {
     setVisible(false);
     setIsRegistered(false);
-    console.log(userObject);
   };
 
+  const loginHandler = async() => {
+    try{
+      const {username, password, email} = userObject;
+      const res = await axios.post(`${SERVERURL}/login`, {username, password, email}, {withCredentials: true})
+      const token = await jwt_decode(res.data)
+      setUser(token)
+      closeHandler()
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  const signupHandler = async() => {
+    try{
+      const {email, password, passwordConfirm, firstName, lastName, phone, username, interests} = userObject;
+      const res = await axios.post(`${SERVERURL}/signup`, {email, password, passwordConfirm, firstName, lastName, phone, username, interests}, {withCredentials: true})
+      const token = await jwt_decode(res.data)
+      setUser(token)
+      console.log(token)
+      console.log("success")
+      closeHandler()
+    }catch(err){
+      console.log(err)
+    }
+  }
+
   const { value, reset, bindings } = useInput("");
+
+  const {user, setUser} = useContext(UserContext);
 
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -93,7 +123,7 @@ export default function App() {
         onClick={handler}
         onPress={handler}
       >
-        <span style={{ fontWeight: 700 }}>Sign Up</span>
+        <span style={{ fontWeight: 700 }}>Sign in</span>
       </Button>
       <Modal
         closeButton
@@ -269,9 +299,13 @@ export default function App() {
           <Button auto flat color="error" onClick={closeHandler}>
             Close
           </Button>
-          <Button auto onClick={closeHandler}>
-            {isRegistered ? "Sign in" : "Sign Up"}
-          </Button>
+            {isRegistered ? 
+            <Button auto onClick={signupHandler}>
+            Sign up
+            </Button> :
+            <Button auto onClick={loginHandler}> 
+            Sign in
+            </Button>}
         </Modal.Footer>
       </Modal>
     </div>

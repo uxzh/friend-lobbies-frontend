@@ -7,23 +7,42 @@ import LobbyPage from "./pages/LobbyPage";
 import LobbyCreation from "./pages/LobbyCreation";
 import LobbyDetailsPage from "./pages/LobbyDetailsPage";
 import lozad from "lozad";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import jwt_decode from 'jwt-decode'
+import getCookie from "./lib/getCookie";
+import UserContext from "./context/UserContext";
 
 function App() {
+  const [ user, setUser ] = useState("");
   useEffect(() => {
     const observer = lozad(".lozad");
     observer.observe();
   }, []);
+
+  useEffect(() => {
+    const token = getCookie("token")
+    if(user === "" && token){ 
+      const data = jwt_decode(token)
+      if(data.exp > new Date().getTime()/1000){
+        setUser(jwt_decode(token))
+      }else{
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+      }
+    }
+  }, [user])
+
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/interest-selection" element={<InterestSelection />} />
-        <Route path="/profile-page" element={<ProfilePage />} />
-        <Route path="/lobby-page" element={<LobbyPage />} />
-        <Route path="/create-lobby" element={<LobbyCreation />} />
-        <Route path="/lobby-details" element={<LobbyDetailsPage />} />
-      </Routes>
+      <UserContext.Provider value={{user, setUser}}>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/interest-selection" element={<InterestSelection />} />
+          <Route path="/profile-page" element={<ProfilePage />} />
+          <Route path="/lobby-page" element={<LobbyPage />} />
+          <Route path="/create-lobby" element={<LobbyCreation />} />
+          <Route path="/lobby-details" element={<LobbyDetailsPage />} />
+        </Routes>
+      </UserContext.Provider>
     </Router>
   );
 }
