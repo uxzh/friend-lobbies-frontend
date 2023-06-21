@@ -13,7 +13,7 @@ import {
   Loading,
 } from "@nextui-org/react";
 import TopNavbar from "../components/navbar/TopNavbar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MemberData from "../components/LobbyDetailsPage/MemberData";
 import WaitlistData from "../components/LobbyDetailsPage/WaitlistData";
 import {
@@ -38,8 +38,10 @@ import Message from "../components/Reusable/Message";
 import { Input } from "@nextui-org/react";
 import axios from "axios";
 import SERVERURL from "../lib/SERVERURL";
+import UserContext from "../context/UserContext";
 
 function LobbyDetailsPage() {
+  const {user, setUSer} = useContext(UserContext)
   const [lobby, setLobby] = useState(null);
   const [users, setUsers] = useState([]);
   const [admin, setAdmin] = useState(null);
@@ -77,18 +79,13 @@ function LobbyDetailsPage() {
       try {
         const query = new URLSearchParams(window.location.search);
         const lobbyId = query.get("lobbyId");
-        const res = await axios.get(`${SERVERURL}/lobbies/lobby/${lobbyId}`, {
-          withCredentials: true,
-        });
+        const res = await axios.get(`${SERVERURL}/lobbies/lobby/${lobbyId}`, {withCredentials: true});
+        const users = await axios.get(`${SERVERURL}/lobbies/users/${lobbyId}`, {withCredentials: true});
+        const admin = await axios.get(`${SERVERURL}/users/single/${res.data.admins[0]}`, {withCredentials: true});
+        const date = new Date(res.data.date).toString();
+        res.data.date = date;
         setLobby(res.data);
-        const users = await axios.get(`${SERVERURL}/lobbies/users/${lobbyId}`, {
-          withCredentials: true,
-        });
         setUsers(users.data);
-        const admin = await axios.get(
-          `${SERVERURL}/users/single/${res.data.admins[0]}`,
-          { withCredentials: true }
-        );
         setAdmin(admin.data);
       } catch (err) {
         console.log(err);
