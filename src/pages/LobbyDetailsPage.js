@@ -77,10 +77,10 @@ function LobbyDetailsPage() {
         const query = new URLSearchParams(window.location.search);
         const lobbyId = query.get("lobbyId");
         const res = await axios.get(`${SERVERURL}/lobbies/lobby/${lobbyId}`, {withCredentials: true});
-        setLobby(res.data);
         const users = await axios.get(`${SERVERURL}/lobbies/users/${lobbyId}`, {withCredentials: true});
-        setUsers(users.data);
         const admin = await axios.get(`${SERVERURL}/users/single/${res.data.admins[0]}`, {withCredentials: true});
+        setLobby(res.data);
+        setUsers(users.data);
         setAdmin(admin.data);
       }catch(err){
         console.log(err)
