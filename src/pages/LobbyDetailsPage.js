@@ -13,7 +13,7 @@ import {
   Loading
 } from "@nextui-org/react";
 import TopNavbar from "../components/navbar/TopNavbar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MemberData from "../components/LobbyDetailsPage/MemberData";
 import WaitlistData from "../components/LobbyDetailsPage/WaitlistData";
 import {
@@ -37,8 +37,10 @@ import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import useDrag from "../hooks/useDrag";
 import axios from "axios";
 import SERVERURL from "../lib/SERVERURL";
+import UserContext from "../context/UserContext";
 
 function LobbyDetailsPage() {
+  const {user, setUSer} = useContext(UserContext)
   const [lobby, setLobby] = useState(null);
   const [users, setUsers] = useState([]);
   const [admin, setAdmin] = useState(null);
@@ -79,6 +81,8 @@ function LobbyDetailsPage() {
         const res = await axios.get(`${SERVERURL}/lobbies/lobby/${lobbyId}`, {withCredentials: true});
         const users = await axios.get(`${SERVERURL}/lobbies/users/${lobbyId}`, {withCredentials: true});
         const admin = await axios.get(`${SERVERURL}/users/single/${res.data.admins[0]}`, {withCredentials: true});
+        const date = new Date(res.data.date).toString();
+        res.data.date = date;
         setLobby(res.data);
         setUsers(users.data);
         setAdmin(admin.data);
@@ -267,7 +271,7 @@ function LobbyDetailsPage() {
                 </Container>
                 <Spacer y={2} />
                 <Grid.Container justify="center">
-                  <Button
+                  {user ? <Button
                     color=""
                     css={{
                       color: "white",
@@ -277,7 +281,7 @@ function LobbyDetailsPage() {
                     iconRight={<ChevronRight set="bold" />}
                   >
                     Join Lobby
-                  </Button>
+                  </Button> : <Text h3>You must be logged in to join a lobby</Text>}
                 </Grid.Container>
               </Card.Body>
             </>
