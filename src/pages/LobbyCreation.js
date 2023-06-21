@@ -3,6 +3,7 @@ import {
   Container,
   Grid,
   Input,
+  Spacer,
   Text,
   Textarea,
 } from "@nextui-org/react";
@@ -186,6 +187,9 @@ function LobbyCreation() {
           }
         />
       </main>
+      <footer>
+          <Spacer y={2}/>
+      </footer>
     </>
   );
 }

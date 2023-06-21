@@ -63,6 +63,9 @@ function LobbyPage(){
                     </Card.Footer>
                 </Card>
             </main>
+            <footer>
+                <Spacer y={2}/>
+            </footer>
         </>
     )
 }

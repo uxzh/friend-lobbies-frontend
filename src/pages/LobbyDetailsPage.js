@@ -366,6 +366,9 @@ function LobbyDetailsPage() {
           }
         />
       </main>
+      <footer>
+          <Spacer y={2}/>
+      </footer>
     </>
   );
 }

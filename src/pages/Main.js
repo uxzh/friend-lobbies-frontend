@@ -1,4 +1,4 @@
-import { Card, Container, Row } from "@nextui-org/react";
+import { Card, Container, Row, Spacer } from "@nextui-org/react";
 import TopNavbar from "../components/navbar/TopNavbar";
 import "../styles/Main.css";
 import UserInfo from "../components/Main/UserInfo";
@@ -63,6 +63,9 @@ export default function Main() {
           }
         />
       </main>
+      <footer>
+          <Spacer y={2}/>
+      </footer>
     </>
   );
 }
