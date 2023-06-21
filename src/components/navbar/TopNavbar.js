@@ -15,15 +15,16 @@ import { useNavigate } from "react-router-dom";
 import LoginModal from "./LoginModal.js";
 import { useContext } from "react";
 import UserContext from "../../context/UserContext.jsx";
+import { Image } from "@nextui-org/react";
 
 export default function TopNavbar() {
   const navigate = useNavigate();
-  const {user, setUser} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const logoutHandler = () => {
-    setUser('')
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-  }
+    setUser("");
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  };
 
   const handleDropdownAction = (actionKey) => {
     switch (actionKey) {
@@ -71,10 +72,14 @@ export default function TopNavbar() {
         >
           <Navbar.Content>
             <Navbar.Link href="/">
-            <Logo />
-            <Text b color="inherit" hideIn="xs">
-              {AppName}
-            </Text>
+              {/* <Logo /> */}
+              <Image
+                style={{ height: 40, padding: 10 }}
+                src="https://imgur.com/HPgNWJc.png"
+              />
+              {/* <Text b color="inherit" hideIn="xs">
+                {AppName}
+              </Text> */}
             </Navbar.Link>
           </Navbar.Content>
         </Navbar.Brand>
@@ -110,17 +115,20 @@ export default function TopNavbar() {
         >
           <Dropdown placement="bottom-right">
             <Navbar.Item>
-              {user ? <Dropdown.Trigger>
-                <Avatar
-                  bordered
-                  squared
-                  as="button"
-                  color="secondary"
-                  size="md"
-                  src={user.picture}
-                />
-              </Dropdown.Trigger> :
-              <LoginModal />}
+              {user ? (
+                <Dropdown.Trigger>
+                  <Avatar
+                    bordered
+                    squared
+                    as="button"
+                    color="secondary"
+                    size="md"
+                    src={user.picture}
+                  />
+                </Dropdown.Trigger>
+              ) : (
+                <LoginModal />
+              )}
             </Navbar.Item>
             <Dropdown.Menu
               aria-label="User menu actions"
@@ -157,37 +165,24 @@ export default function TopNavbar() {
         </Navbar.Content>
 
         <Navbar.Collapse>
-              <Navbar.CollapseItem activeColor='secondary'>
-                <Link href="/profile-page">
-                  My Profile
-                </Link>
-              </Navbar.CollapseItem>
-              <Navbar.CollapseItem activeColor='secondary'>
-                <Link href="/joined-lobbies">
-                  Joined Lobbies
-                </Link>
-              </Navbar.CollapseItem>
-              <Navbar.CollapseItem activeColor='secondary'>
-                <Link href="/my-lobbies">
-                  My Lobbies
-                </Link>
-              </Navbar.CollapseItem>
-              <Navbar.CollapseItem activeColor='secondary'>
-                <Link href="/create-lobby">
-                  Create Lobby
-                </Link>
-              </Navbar.CollapseItem>
-              <Navbar.CollapseItem activeColor='secondary'>
-                <Link href="/help-and-feedback">
-                  Help and Feedback
-                </Link>
-              </Navbar.CollapseItem>
-              <Navbar.CollapseItem activeColor='secondary'>
-                <Link /* onClick={logOut} */ color='error'>
-                  Log Out
-                </Link>
-              </Navbar.CollapseItem>
-
+          <Navbar.CollapseItem activeColor="secondary">
+            <Link href="/profile-page">My Profile</Link>
+          </Navbar.CollapseItem>
+          <Navbar.CollapseItem activeColor="secondary">
+            <Link href="/joined-lobbies">Joined Lobbies</Link>
+          </Navbar.CollapseItem>
+          <Navbar.CollapseItem activeColor="secondary">
+            <Link href="/my-lobbies">My Lobbies</Link>
+          </Navbar.CollapseItem>
+          <Navbar.CollapseItem activeColor="secondary">
+            <Link href="/create-lobby">Create Lobby</Link>
+          </Navbar.CollapseItem>
+          <Navbar.CollapseItem activeColor="secondary">
+            <Link href="/help-and-feedback">Help and Feedback</Link>
+          </Navbar.CollapseItem>
+          <Navbar.CollapseItem activeColor="secondary">
+            <Link /* onClick={logOut} */ color="error">Log Out</Link>
+          </Navbar.CollapseItem>
 
           {/* {collapseItems.map((item, index) => (
             <Navbar.CollapseItem
@@ -211,7 +206,6 @@ export default function TopNavbar() {
               </Link>
             </Navbar.CollapseItem>
           ))} */}
-
         </Navbar.Collapse>
       </Navbar>
     </Layout>
