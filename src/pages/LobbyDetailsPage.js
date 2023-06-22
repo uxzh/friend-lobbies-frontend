@@ -45,6 +45,8 @@ function LobbyDetailsPage() {
   const [lobby, setLobby] = useState(null);
   const [users, setUsers] = useState([]);
   const [admin, setAdmin] = useState(null);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
   const { dragStart, dragStop, dragMove, dragging } = useDrag();
   const handleDrag =
     ({ scrollContainer }) =>
@@ -73,6 +75,17 @@ function LobbyDetailsPage() {
   function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
+  
+  const messageHandler = async () => {
+    try{
+      const res = await axios.post(`${SERVERURL}/lobbies/message/${lobby._id}`, {message}, {withCredentials: true})
+      setMessage("")
+      const messages = await axios.get(`${SERVERURL}/lobbies/message/${lobby._id}`, {withCredentials: true});
+      setMessages(messages.data);
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   useEffect(() => {
     const fetchLobby = async () => {
@@ -82,11 +95,13 @@ function LobbyDetailsPage() {
         const res = await axios.get(`${SERVERURL}/lobbies/lobby/${lobbyId}`, {withCredentials: true});
         const users = await axios.get(`${SERVERURL}/lobbies/users/${lobbyId}`, {withCredentials: true});
         const admin = await axios.get(`${SERVERURL}/users/single/${res.data.admins[0]}`, {withCredentials: true});
+        const messages = await axios.get(`${SERVERURL}/lobbies/message/${lobbyId}`, {withCredentials: true});
         const date = new Date(res.data.date).toString();
         res.data.date = date;
         setLobby(res.data);
         setUsers(users.data);
         setAdmin(admin.data);
+        setMessages(messages.data);
       } catch (err) {
         console.log(err);
       }
@@ -121,7 +136,7 @@ function LobbyDetailsPage() {
                 </Row>
                 <Row justify="center">
                   <Text h2 css={{ marginBottom: 0, textAlign: "center" }}>
-                    {lobby.activity}
+                    {lobby.name}
                   </Text>
                 </Row>
 
@@ -360,7 +375,7 @@ function LobbyDetailsPage() {
           />
           <Spacer />
           {/* display the chat only if joined the lobby */}
-          <MainCard
+          {lobby.users.includes(user._id) ? <MainCard
             children={
               <>
                 <Text h3 css={{ textAlign: "center" }}>
@@ -377,7 +392,23 @@ function LobbyDetailsPage() {
                 >
                   {/* implement mapping through messages */}
                   <div id="lobby-chat">
-                    <Message
+                    {messages.map((message) => {
+                      const user = users.find(
+                        (user) => user._id === message.userID
+                      )
+                      return(
+                        <Message
+                          profilePhoto={
+                            user.picture
+                          }
+                          profileName={user.username}
+                          message={message.message}
+                          type={"message"}
+                          key={message._id}
+                        />
+                      )
+                    })}
+                    {/* <Message
                       profilePhoto={
                         "https://ca.slack-edge.com/T046G9D7MGU-U048E1E2HME-ec532a93d7f3-512"
                       }
@@ -417,7 +448,7 @@ function LobbyDetailsPage() {
                       profileName={"notadrugdealer"}
                       message={"Let me cook."}
                       type={"message"}
-                    />
+                    /> */}
                   </div>
                   <div style={{ marginTop: 16 }}>
                     <Input
@@ -425,8 +456,11 @@ function LobbyDetailsPage() {
                       bordered
                       css={{ backgroundColor: "white" }}
                       contentRightStyling={false}
+                      onChange={(e) => setMessage(e.target.value)}
+                      value={message}
                       contentRight={
                         <Button
+                          onClick={messageHandler}
                           style={{
                             padding: 8,
                             color: "white",
@@ -436,6 +470,7 @@ function LobbyDetailsPage() {
                           auto
                         >
                           <Send set="bold" />
+                          
                         </Button>
                       }
                       fullWidth
@@ -444,7 +479,7 @@ function LobbyDetailsPage() {
                 </Container>
               </>
             }
-          />
+          /> : <></>}
           <Spacer />
           <MainCard
             children={

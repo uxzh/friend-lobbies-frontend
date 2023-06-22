@@ -14,7 +14,7 @@ export default function CategoryCardsBig(props) {
     }
   };
 
-  const { _id, category, activity, defaultPicture, users, location, date } =
+  const { _id, category, activity, defaultPicture, users, location, date, pictures } =
     props.props;
   const { isDragging } = props;
 
@@ -76,7 +76,7 @@ export default function CategoryCardsBig(props) {
                 throttle={50}
               >
                 <LazyLoadImage
-                  src={defaultPicture}
+                  src={pictures[0] ? pictures[0] : defaultPicture}
                   alt="Card image"
                   className="lozad"
                   style={{
@@ -130,7 +130,7 @@ export default function CategoryCardsBig(props) {
                 set="curved"
                 primaryColor="blueviolet"
               />
-              {date}
+              {date.slice(0, 10)}
             </Text>
           </Card.Body>
         </Card>

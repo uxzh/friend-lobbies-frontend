@@ -57,7 +57,7 @@ function LobbyCreation() {
       for (const image of images) {
         data.append("pictures", image);
       }
-      const res = await axios.post(`${SERVERURL}/lobbies/`, data, {withCredentials: true})
+      const res = await axios.post(`${SERVERURL}/lobbies/lobby`, data, {withCredentials: true})
       console.log(res.data)
     }catch(err){
       console.log(err)
