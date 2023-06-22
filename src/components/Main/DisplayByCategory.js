@@ -7,6 +7,8 @@ import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import "react-horizontal-scrolling-menu/dist/styles.css";
 import LazyLoad from "react-lazy-load";
 import InfiniteScroll from "react-infinite-scroller";
+import axios from "axios";
+import SERVERURL from "../../lib/SERVERURL";
 
 export default function DisplayByCategory() {
   const [lobbies, setLobbies] = React.useState([]);
@@ -36,7 +38,16 @@ export default function DisplayByCategory() {
       });
 
   useEffect(() => {
-    setLobbies(organizeByCategory(lobbiesData));
+    const getLobbies = async () => {
+      try{
+        const lobbies = await axios.get(`${SERVERURL}/lobbies/all`, {withCredentials: true})
+        setLobbies(organizeByCategory(lobbies.data));
+        console.log(lobbies.data)
+      }catch(err){
+        console.log(err)
+      }
+    }
+    getLobbies();
   }, []);
 
   function organizeByCategory(lobbies) {
@@ -88,13 +99,13 @@ export default function DisplayByCategory() {
 
   return (
     <>
-      <InfiniteScroll
+      {/* <InfiniteScroll
         pageStart={0}
         loadMore={fetchMoreLobbies}
         hasMore={hasMore}
         loader={<div key={0}>Loading...</div>}
         useWindow={true}
-      >
+      > */}
         {Object.keys(lobbies).map((category, index) => (
           <>
             <CategoryName name={category} amount={lobbies[category].length} />
@@ -122,7 +133,7 @@ export default function DisplayByCategory() {
             </ScrollMenu>
           </>
         ))}
-      </InfiniteScroll>
+      {/* </InfiniteScroll> */}
     </>
   );
 }

@@ -8,11 +8,12 @@ import DisplayByCategory from "../components/Main/DisplayByCategory";
 import DisplayForYou from "../components/Main/DisplayForYou";
 import DisplayMostPopular from "../components/Main/DisplayMostPopular ";
 import DisplayNearby from "../components/Main/DisplayNearby";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import UserContext from "../context/UserContext";
 
 export default function Main() {
   const [activeButton, setActiveButton] = useState("For you");
-
+  const {user, setUser} = useContext(UserContext)
   const handleClick = (buttonName) => {
     setActiveButton(buttonName);
   };
@@ -21,10 +22,7 @@ export default function Main() {
     switch (activeButton) {
       case "For you":
         return (
-          <DisplayForYou
-            interests={["sport", "video gaming", "games"]}
-            city="Tel Aviv"
-          />
+          <DisplayForYou/>
         );
       case "Most Popular":
         return <DisplayMostPopular />;
