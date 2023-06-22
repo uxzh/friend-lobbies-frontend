@@ -5,13 +5,13 @@ import {
   Col,
   Row,
   Text,
-  Tooltip,
+  Tooltip
 } from "@nextui-org/react";
 import { Calendar, Location, User } from "react-iconly";
 import { useNavigate } from "react-router-dom";
 
 export default function CategoryCardsBigger(props) {
-  const { _id, activity, defaultPicture, users, location, date, pictures } =
+  const { _id, activity, defaultPicture, users, location, date, pictures, isActive = true } =
     props.props;
 
   function getImageSrc() {
@@ -31,7 +31,10 @@ export default function CategoryCardsBigger(props) {
   const navigate = useNavigate();
 
   const handleClick = () => {
+    console.log(isActive)
+    if(isActive){
     navigate(`/lobby-details?lobbyId=${_id}`);
+    }
   };
 
   return (

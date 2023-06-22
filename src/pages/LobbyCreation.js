@@ -188,7 +188,7 @@ function LobbyCreation() {
                     This is how your Lobby is going to look
                   </Text>
                   <div style={{ maxWidth: 400, width: "100%", margin: "auto" }}>
-                    <CategoryCardsBigger props={newLobby} />
+                    <CategoryCardsBigger props={{...newLobby, isActive: false}} />
                   </div>
                 </div>
                 <center>
