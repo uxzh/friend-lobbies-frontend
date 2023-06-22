@@ -1,5 +1,5 @@
 import { Avatar, Badge, Col, Modal, Button } from "@nextui-org/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EditSquare } from "react-iconly";
 import { FilePond, registerPlugin } from "react-filepond";
 import "filepond/dist/filepond.min.css";
@@ -18,13 +18,17 @@ registerPlugin(
   FilePondPluginImageResize
 );
 
-const ProfileHeader = ({ userObject, isUpdating }) => {
+const ProfileHeader = ({ userObject, isUpdating, imageHandler }) => {
   const [visible, setVisible] = useState(false);
   const handler = () => setVisible(true);
   const closeHandler = () => {
     setVisible(false);
   };
   const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    imageHandler(images)
+  }, [images])
 
   return (
     <div>

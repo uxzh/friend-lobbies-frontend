@@ -12,6 +12,11 @@ import ProfilePageHeader from "../components/ProfilePage/ProfilePageHeader";
 import BioArea from "../components/ProfilePage/BioArea";
 import EditProfileButton from "../components/ProfilePage/EditProfileButton";
 import UserContext from "../context/UserContext";
+<<<<<<< HEAD
+import axios from "axios";
+import SERVERURL from "../lib/SERVERURL";
+=======
+>>>>>>> 97ed0765dad57712fdf04fb5bcc1bb4161118941
 
 function ProfilePage() {
   // REPLACE WITH FETCHED USER
@@ -48,9 +53,30 @@ function ProfilePage() {
     userObject.phoneNumber
   );
   const [isUpdating, setIsUpdating] = useState(false);
+  const [updatedProfilePhoto, setUpdatedProfilePhoto] = useState(null)
 
   const navigate = useNavigate();
 
+<<<<<<< HEAD
+  const imageHandler = (images) => {
+    setUpdatedProfilePhoto(images)
+  }
+
+  async function handleSubmission() {
+    try{
+      const data = new FormData();
+      data.append("firstName", updatedUserObject.firstName);
+      data.append("lastName", updatedUserObject.lastName);
+      data.append("location", updatedUserObject.location);
+      data.append("bio", updatedUserObject.bio);
+      data.append("phoneNumber", updatedUserObject.phoneNumber);
+      data.append("picture", updatedProfilePhoto[0]);
+      const res = await axios.put(`${SERVERURL}/users/user`, data, {withCredentials: true})
+      setIsUpdating(false);
+    }catch(err){
+      console.log(err)
+    }
+=======
   function handleSubmission() {
     // send the updated object
     const data = new FormData();
@@ -61,6 +87,7 @@ function ProfilePage() {
     data.append("phoneNumber", updatedUserObject.phoneNumber);
     data.append("profilePhoto", updatedUserObject.profilePhoto);
     setIsUpdating(false);
+>>>>>>> 97ed0765dad57712fdf04fb5bcc1bb4161118941
   }
 
   // Split the updated input into name and surname
@@ -97,6 +124,7 @@ function ProfilePage() {
                   setUpdatedPhoneNumber={setUpdatedPhoneNumber}
                   updatedLocation={updatedLocation}
                   setUpdatedLocation={setUpdatedLocation}
+                  imageHandler = {imageHandler}
                 />
 
                 <center>
