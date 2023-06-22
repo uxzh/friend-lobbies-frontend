@@ -11,20 +11,16 @@ import { Calendar, Location, User } from "react-iconly";
 import { useNavigate } from "react-router-dom";
 
 export default function CategoryCardsBigger(props) {
-  const { _id, activity, defaultPicture, users, location, date, pictures, isActive = true } =
+  const { _id, name, defaultPicture, users, location, date, pictures, isActive = true } =
     props.props;
 
+  const dateStr = date.slice(0, 10);
   function getImageSrc() {
-    if (!props.images || props.images.length === 0) {
+    if (!pictures || pictures.length === 0) {
       return defaultPicture;
     }
-
-    const firstImage = props.images[0];
-
-    if (firstImage instanceof File) {
-      return URL.createObjectURL(firstImage);
-    } else {
-      return firstImage;
+    else{
+      return pictures[0]
     }
   }
 
@@ -65,7 +61,7 @@ export default function CategoryCardsBigger(props) {
                 textShadow: "2px 2px 4px #000000",
               }}
             >
-              {activity}
+              {name}
             </Text>
           </Col>
         </Card.Header>
@@ -146,7 +142,7 @@ export default function CategoryCardsBigger(props) {
                     set="bold"
                     primaryColor="#4c8bf5"
                   />
-                  {date}
+                  {dateStr}
                 </Text>
               </Col>
               <Col css={{ width: "45%" }}>

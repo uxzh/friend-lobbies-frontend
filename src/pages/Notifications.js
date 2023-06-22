@@ -6,8 +6,11 @@ import { Button } from "@nextui-org/react";
 import { CloseSquare, TickSquare } from "react-iconly";
 import { Badge } from "@nextui-org/react";
 import Message from "../components/Reusable/Message";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
 
 export default function Notifications() {
+  const {user, setUser} = useContext(UserContext)
   return (
     <>
       <header>
@@ -21,45 +24,23 @@ export default function Notifications() {
                 h3
                 style={{ fontWeight: 400, margin: "auto", marginBottom: "4vh" }}
               >
-                You have <strong>4</strong> new notifications
+                You have <strong>{user.invites.length}</strong> new notifications
               </Text>
               {/* implement mapping through requests */}
               <div id="messagesDiv" style={{ margin: "auto", maxWidth: 600 }}>
-                <Message
-                  profilePhoto={
-                    "https://ca.slack-edge.com/T046G9D7MGU-U048E1E2HME-ec532a93d7f3-512"
-                  }
-                  profileName={"superguy"}
-                  type={"lobby"}
-                  lobbyName={"Vegan Baking 101"}
-                  lobbyID={"2021004"}
-                  buttons
-                />
-                <Message
-                  profilePhoto={
-                    "https://ca.slack-edge.com/T046G9D7MGU-U048E1E2HME-ec532a93d7f3-512"
-                  }
-                  profileName={"superguy"}
-                  type={"friend"}
-                  buttons
-                />
-                <Message
-                  profilePhoto={
-                    "https://media.licdn.com/dms/image/C4E03AQHZbPJzgHv0TA/profile-displayphoto-shrink_800_800/0/1658600939911?e=1692835200&v=beta&t=XexiMKy8c-_w-dO7tX6iaarHoXWGz5RpJM9VHxhzlNs"
-                  }
-                  profileName={"tanya"}
-                  type={"friend"}
-                  buttons
-                />
-                <Message
-                  profilePhoto={
-                    "https://ca.slack-edge.com/T046G9D7MGU-U04ALRSD91T-6a4689126259-72"
-                  }
-                  profileName={"aviadtheking"}
-                  type={"unread"}
-                  lobbyName={"Sunset Photography Walk"}
-                  lobbyID={"t1u2v3w4x5y6z7a8b9c0d1e2f3g4h5"}
-                />
+                {user.invites.map((invite) => {
+                  return (
+                    <Message
+                      profilePhoto={invite.picture}
+                      profileName={invite.username}
+                      type={invite.type}
+                      lobbyName={"a Lobby"}
+                      lobbyID={invite.reference}
+                      _id={invite._id}
+                      buttons
+                    />
+                  );
+                })}
               </div>
             </>
           }

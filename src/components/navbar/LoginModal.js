@@ -37,6 +37,7 @@ export default function App() {
         { withCredentials: true }
       );
       const token = await jwt_decode(res.data);
+      console.log(token)
       setUser(token);
       closeHandler();
     } catch (err) {

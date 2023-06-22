@@ -1,7 +1,7 @@
 import { Button, Spacer, Text } from "@nextui-org/react";
 import TopNavbar from "../components/navbar/TopNavbar";
 import "../styles/Main.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import MainCard from "../components/Reusable/MainCard";
@@ -11,22 +11,33 @@ import Interests from "../components/ProfilePage/Interests";
 import ProfilePageHeader from "../components/ProfilePage/ProfilePageHeader";
 import BioArea from "../components/ProfilePage/BioArea";
 import EditProfileButton from "../components/ProfilePage/EditProfileButton";
+import UserContext from "../context/UserContext";
 
 function ProfilePage() {
   // REPLACE WITH FETCHED USER
+
+
+  const {user, setUser} = useContext(UserContext)
+
   const userObject = {
-    name: "Aviad",
-    surname: "The King",
-    phoneNumber: "+972 33 123 45 532",
-    profilePhoto:
-      "https://ca.slack-edge.com/T046G9D7MGU-U04ALRSD91T-6a4689126259-72",
-    location: "Tel Aviv, Israel",
+    ...user,
+    name: user.firstName,
+    surname: user.lastName,
+    phoneNumber: user.phone,
+    profilePhoto: user.picture,
+    location: user.location,
     friends: 123,
     lobbiesJoined: 14,
-    lobbiesCreated: 5,
-    bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    interests: ["Book Club", "Coding", "Video Games"],
-  };
+    lobbiesCreated: 5
+  }
+
+  if(!userObject.location){
+    userObject.location = "Tel Aviv, Israel"
+  }
+
+  if(!userObject.bio){
+    userObject.bio = "No bio yet. Why don't you add one?"
+  }
 
   const [updatedName, setUpdatedName] = useState(
     userObject.name + " " + userObject.surname
@@ -42,7 +53,13 @@ function ProfilePage() {
 
   function handleSubmission() {
     // send the updated object
-
+    const data = new FormData();
+    data.append("firstName", updatedUserObject.firstName);
+    data.append("lastName", updatedUserObject.lastName);
+    data.append("location", updatedUserObject.location);
+    data.append("bio", updatedUserObject.bio);
+    data.append("phoneNumber", updatedUserObject.phoneNumber);
+    data.append("profilePhoto", updatedUserObject.profilePhoto);
     setIsUpdating(false);
   }
 
@@ -51,11 +68,11 @@ function ProfilePage() {
 
   // The updated object to send to the server
   const updatedUserObject = {
-    name: splitName[0],
-    surname: splitName.slice(1).join(" "),
-    location: updatedBio,
+    firstName: splitName[0],
+    lastName: splitName.slice(1).join(" "),
+    location: updatedLocation,
     bio: updatedBio,
-    phoneNumber: updatedPhoneNumber,
+    phoneNumber: updatedPhoneNumber
   };
 
   return (

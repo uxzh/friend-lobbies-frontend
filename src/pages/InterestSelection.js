@@ -15,9 +15,13 @@ import interests from "../data/interest_selection.json";
 import { useState } from "react";
 import { ArrowRightSquare } from "react-iconly";
 import MainCard from "./../components/Reusable/MainCard";
+import axios from "axios";
+import SERVERURL from "../lib/SERVERURL";
+import { useNavigate } from "react-router-dom";
 
 function InterestSelection() {
   const [selectedInterests, setSelectedInterests] = useState([]);
+  const navigate = useNavigate();
 
   const handleInterestSelection = (interest, isSelected) => {
     if (isSelected) {
@@ -28,6 +32,15 @@ function InterestSelection() {
       );
     }
   };
+
+  const updateHandler = async () => {
+    try{
+      const res = await axios.put(`${SERVERURL}/users`, {interests: selectedInterests}, {withCredentials: true});
+      navigate("/profile-page")
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   return (
     <>
@@ -70,6 +83,7 @@ function InterestSelection() {
           }}
           bordered
           color={"black"}
+          onClick={updateHandler}
         >
           Continue
         </Button>

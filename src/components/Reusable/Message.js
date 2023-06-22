@@ -1,6 +1,8 @@
 import { Avatar, Button, Text, Tooltip } from "@nextui-org/react";
+import axios from "axios";
 import { CloseSquare, TickSquare } from "react-iconly";
 import { useNavigate } from "react-router-dom";
+import SERVERURL from "../../lib/SERVERURL";
 
 export default function Message({
   reply,
@@ -11,9 +13,27 @@ export default function Message({
   lobbyID,
   buttons,
   message,
+  _id
 }) {
   const navigate = useNavigate();
 
+  const acceptHandler = async () => {
+    try{
+      const res = await axios.put(`${SERVERURL}/users/acceptInvite/${_id}`)
+      if (type === "lobby")
+      navigate(`/lobby-details?lobbyId=${lobbyID}`)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  const denyHandler = async () => {
+    try{
+      const res = await axios.put(`${SERVERURL}/users/denyInvite/${_id}`)
+    }catch(err){
+      console.log(err)
+    }
+  }
   return (
     <div
       style={{
@@ -69,6 +89,7 @@ export default function Message({
                 iconRight={<TickSquare set="bold" />}
                 color="success"
                 flat
+                onClick={acceptHandler}
               >
                 Accept
               </Button>
@@ -78,6 +99,7 @@ export default function Message({
                 color="error"
                 iconRight={<CloseSquare set="bold" />}
                 flat
+                onClick={denyHandler}
               >
                 Deny
               </Button>

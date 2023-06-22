@@ -29,7 +29,7 @@ function App() {
     if (user === "" && token) {
       const data = jwt_decode(token);
       if (data.exp > new Date().getTime() / 1000) {
-        setUser(jwt_decode(token));
+        setUser(data);
       } else {
         document.cookie =
           "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
