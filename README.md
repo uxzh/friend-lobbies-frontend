@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# 👥 FriendZone - Connect with Like-minded People
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 📖 Overview
 
-## Available Scripts
+FriendZone is a web application designed to help people connect with others who share similar interests. Whether you're traveling to a new place or simply looking to expand your social circle, FriendZone makes it easy to find like-minded friends in your area. Think of it as Tinder, but for platonic friendships! 🌍👋
 
-In the project directory, you can run:
+## 🌟 Features
 
-### `npm start`
+- **Interest-based Matching**: Users can create profiles highlighting their interests, hobbies, and preferences. FriendZone's algorithm then matches users with others who share similar interests. 🎯❤️
+- **Location-based Search**: Users can search for potential friends based on their current location or a specific area they plan to visit. 📍🔍
+- **Chat and Messaging**: Once matched, users can communicate with each other through the built-in chat and messaging system. This allows them to get to know each other better and plan meetups or activities. 💬📅
+- **Event Creation**: Users can create and join events related to their interests, fostering a sense of community and facilitating in-person interactions. 🎉👥
+- **User Profiles**: Each user has a personalized profile page where they can showcase their interests, photos, and a brief bio. This helps others get a better sense of who they are and what they're looking for in a friendship. 🙋‍♂️📝
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠️ Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Frontend
+- **React**: A JavaScript library for building user interfaces. React allows for the creation of reusable UI components and efficient updates to the DOM. ⚛️
+- **React Router**: A routing library for React applications. React Router enables navigation between different pages and components within the app. 🗺️
+- **Axios**: A promise-based HTTP client for making API requests. Axios simplifies the process of sending and receiving data from the backend server. 🌐📡
+- **Material-UI**: A popular React UI framework that provides pre-built, customizable components following Material Design principles. Material-UI helps create a modern and consistent look and feel throughout the app. 🎨🧩
+- **CSS Modules**: A CSS file in which all class names and animation names are scoped locally by default. CSS Modules help prevent naming conflicts and make the styles more maintainable. 🎨📂
 
-### `npm test`
+### Backend
+- **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js allows for server-side JavaScript execution. 🟢🖥️
+- **Express**: A minimal and flexible Node.js web application framework. Express provides a robust set of features for building web applications and APIs. 🚀🌐
+- **MongoDB**: A cross-platform document-oriented database program. MongoDB stores data in flexible, JSON-like documents, making it suitable for handling unstructured data. 🍃📊
+- **Mongoose**: An Object Data Modeling (ODM) library for MongoDB and Node.js. Mongoose provides a schema-based solution for modeling application data and simplifies interactions with the database. 🦾🗄️
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Getting Started
 
-### `npm run build`
+To run the FriendZone frontend locally, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository:
+   ```
+   git clone https://github.com/uxzh/friend-lobbies-frontend.git
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Navigate to the project directory:
+   ```
+   cd friend-lobbies-frontend
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Install the dependencies:
+   ```
+   npm install
+   ```
 
-### `npm run eject`
+4. Start the development server:
+   ```
+   npm start
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+5. Open your browser and visit `http://localhost:3000` to see the app in action.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Note: Make sure you have the backend server running as well. You can find the backend repository at [friend-lobbies-backend](https://github.com/uxzh/friend-lobbies-backend).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🤝 Contributing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+We welcome contributions from the community! If you'd like to contribute to FriendZone, please follow these steps:
 
-## Learn More
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them with descriptive messages.
+4. Push your changes to your forked repository.
+5. Submit a pull request to the main repository, explaining your changes and their benefits.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+We appreciate your help in making FriendZone better! 😊
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📧 Contact
 
-### Code Splitting
+If you have any questions, suggestions, or feedback, please feel free to reach out at uxzh@pm.me.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+We'd love to hear from you! 💬
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Happy friend-finding with FriendZone! 👥🌍
