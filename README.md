@@ -7,10 +7,36 @@ FriendZone is a web application designed to help people connect with others who 
 ## 🌟 Features
 
 - **Interest-based Matching**: Users can create profiles highlighting their interests, hobbies, and preferences. FriendZone's algorithm then matches users with others who share similar interests. 🎯❤️
+
+<p align="center">
+  <img src="https://imgur.com/l5Rj3HG.png" height="350" alt="screenshot 1">
+  <img src="https://imgur.com/e02XoQc.png" height="350" alt="screenshot 2">
+</p>
+
 - **Location-based Search**: Users can search for potential friends based on their current location or a specific area they plan to visit. 📍🔍
+
+<p align="center">
+  <img src="https://imgur.com/urVHJT3.png" height="350" alt="screenshot 3">
+</p>
+
 - **Chat and Messaging**: Once matched, users can communicate with each other through the built-in chat and messaging system. This allows them to get to know each other better and plan meetups or activities. 💬📅
+
+<p align="center">
+  <img src="https://imgur.com/NWckvEP.png" height="350" alt="screenshot 4">
+  <img src="https://imgur.com/ui0Fv3W.png" height="350" alt="screenshot 5">
+</p>
+  
 - **Event Creation**: Users can create and join events related to their interests, fostering a sense of community and facilitating in-person interactions. 🎉👥
+
+<p align="center">
+  <img src="https://imgur.com/qIwdIAQ.png" height="350" alt="screenshot 6">
+</p>
+
 - **User Profiles**: Each user has a personalized profile page where they can showcase their interests, photos, and a brief bio. This helps others get a better sense of who they are and what they're looking for in a friendship. 🙋‍♂️📝
+
+<p align="center">
+  <img src="https://imgur.com/qfpOvjB.png" height="350" alt="screenshot 7">
+</p>
 
 ## 🛠️ Technologies Used
 
